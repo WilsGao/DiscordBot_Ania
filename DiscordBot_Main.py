@@ -46,7 +46,7 @@ async def on_message(message):
         elif command == 'about':
             await message.channel.send('我是Ania!，我喜歡花生')
         elif command == 'ping':
-			await message.channel.send(f'Pong! My ping is {round(latency * 1000)}ms')
+	    await message.channel.send(f'Pong! ping is {round(latency * 1000)}ms')
 
     await bot.process_commands(message)
 
