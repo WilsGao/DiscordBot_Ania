@@ -15,6 +15,11 @@ async def on_ready():
 async def ping(ctx):
     await ctx.send('Pong!')
 
+# 定義命令 !iamtaiwanese
+@bot.command()
+async def iamtaiwanese(ctx):
+    await ctx.send('你好, 我是Ania!')
+
 # 從環境變量中讀取機器人令牌
 discord_token = os.getenv('DISCORD_TOKEN')
 
