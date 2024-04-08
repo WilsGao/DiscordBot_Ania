@@ -1,6 +1,7 @@
 import os
 import discord
 from discord.ext import commands
+from discord import app_commands
 
 # 定义 Intents 对象
 intents = discord.Intents.default()
