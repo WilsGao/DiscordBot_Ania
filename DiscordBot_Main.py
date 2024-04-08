@@ -38,16 +38,29 @@ async def about(ctx):
 
 #斜線指令
 @bot.event
-async def on_message(message):
-    if message.content.startswith('/'):
-        command = message.content[1:].split(' ')[0]
-        arguments = message.content[1+len(command):].strip()
-        if command == 'hello':
-            await message.channel.send('Hello!')
-        elif command == 'about':
-            await message.channel.send('我是Ania!，我喜歡花生')
-		
-    await bot.process_commands(message)
+async def on_ready():
+    slash = await bot.tree.sync()
+    print(f"目前登入身份 --> {bot.user}")
+    print(f"載入 {len(slash)} 個斜線指令")
+
+
+# name指令顯示名稱，description指令顯示敘述
+# name的名稱，中、英文皆可，但不能使用大寫英文
+@app_commands.command(name = "hello", description = "Hello, world!")
+async def hello(self, interaction: discord.Interaction):
+    # 回覆使用者的訊息
+    await interaction.response.send_message("Hello, world!")
+
+# async def on_message(message):
+    # if message.content.startswith('/'):
+        # command = message.content[1:].split(' ')[0]
+        # arguments = message.content[1+len(command):].strip()
+        # if command == 'hello':
+            # await message.channel.send('Hello!')
+        # elif command == 'about':
+            # await message.channel.send('我是Ania!，我喜歡花生')
+
+    #await bot.process_commands(message)
 
 # 登錄機器人
 bot.run(os.getenv('DISCORD_TOKEN'))
