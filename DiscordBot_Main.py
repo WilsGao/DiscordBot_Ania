@@ -26,12 +26,29 @@ async def on_ready():
 # 定義命令 !ping
 @bot.command()
 async def ping(ctx):
-    await ctx.send('Pong!')
+    # 计算机器人的当前延迟（ping）值
+    latency = bot.latency
+    # 将延迟值转换为毫秒并发送到 Discord
+    await ctx.send(f'Pong! My ping is {round(latency * 1000)}ms')
 
 # 定義命令 !about
 @bot.command()
 async def about(ctx):
     await ctx.send('你好, 我是Ania!')
+#斜線指令
+@bot.event
+async def on_message(message):
+    if message.content.startswith('/'):
+        command = message.content[1:].split(' ')[0]
+        arguments = message.content[1+len(command):].strip()
+        if command == 'hello':
+            await message.channel.send('Hello!')
+        elif command == 'about':
+            await message.channel.send('我是Ania!，我喜歡花生')
+        elif command == 'ping':
+			await message.channel.send(f'Pong! My ping is {round(latency * 1000)}ms')
+
+    await bot.process_commands(message)
 
 # 登錄機器人
 bot.run(os.getenv('DISCORD_TOKEN'))
