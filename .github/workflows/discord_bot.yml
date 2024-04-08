@@ -1,0 +1,29 @@
+name: Discord Bot
+
+on:
+  push:
+    branches:
+      - main  # 可以根據你的主分支名稱進行修改
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'  # 請確保版本適用於你的Python代碼
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt  # 請根據你的要求文件名稱進行修改
+
+    - name: Run bot
+      run: DiscordBot_Main.py  # 請確保這條命令啟動你的機器人
+      env:
+        DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}  # 這裡使用了 GitHub 存儲庫的密鑰功能，將機器人令牌保存在密鑰
