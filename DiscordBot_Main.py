@@ -1,9 +1,15 @@
 import discord
 from discord.ext import commands
-import os
+
+# 定义 Intents 对象
+intents = discord.Intents.default()
+
+# 如果你的 Bot 需要发送/接收消息和读取成员列表
+intents.messages = True
+intents.members = True
 
 # 初始化機器人客戶端
-bot = commands.Bot(command_prefix='!')
+bot = commands.Bot(command_prefix='!', intents=intents)
 
 # 定義當機器人啟動時的事件
 @bot.event
@@ -20,8 +26,5 @@ async def ping(ctx):
 async def iamtaiwanese(ctx):
     await ctx.send('你好, 我是Ania!')
 
-# 從環境變量中讀取機器人令牌
-discord_token = os.getenv('DISCORD_TOKEN')
-
 # 登錄機器人
-bot.run(discord_token)
+bot.run(os.getenv('DISCORD_TOKEN'))
