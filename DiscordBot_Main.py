@@ -35,6 +35,7 @@ async def ping(ctx):
 @bot.command()
 async def about(ctx):
     await ctx.send('你好, 我是Ania!')
+
 #斜線指令
 @bot.event
 async def on_message(message):
@@ -45,9 +46,7 @@ async def on_message(message):
             await message.channel.send('Hello!')
         elif command == 'about':
             await message.channel.send('我是Ania!，我喜歡花生')
-        elif command == 'ping':
-	    await message.channel.send(f'Pong! ping is {round(latency * 1000)}ms')
-
+		
     await bot.process_commands(message)
 
 # 登錄機器人
