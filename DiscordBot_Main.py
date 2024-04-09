@@ -15,7 +15,7 @@ intents.members = True
 intents.guilds = True # 如果你的機器人需要與伺服器交互，也需要啟用此權限
 intents.message_content = True
 
-ADMIN_ID = int(os.getenv('ADMIN_ID'))
+ADMIN_ID = os.getenv('ADMIN_ID')
 
 # 初始化機器人客戶端
 bot = commands.Bot(command_prefix='!', intents=intents)
