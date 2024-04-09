@@ -20,9 +20,9 @@ intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 # 定義當機器人啟動時的事件
-@bot.event
-async def on_ready():
-    print(f'{bot.user.name} has connected to Discord!')
+#@bot.event
+#async def on_ready():
+    #print(f'{bot.user.name} has connected to Discord!')
 
 # 定義命令 !ping
 @bot.command()
@@ -51,16 +51,13 @@ async def on_ready():
 async def hello(response: discord.InteractionResponse):
     # 回覆使用者的訊息
     await response.send_message("Hello, world!")
-#async def hello(interaction: discord.Interaction):
-    # 回覆使用者的訊息
-    #await interaction.response.send_message("Hello, world!")
 
 @bot.tree.command(name = "shutup", description = "讓人安靜的指令")
 async def shutup(response: discord.InteractionResponse):
     # 回覆使用者的訊息
-    await interaction.response.send_message("破麻 你閉閉！")
+    await response.send_message("破麻 你閉閉!")
 
-@bot.tree.command(name="help", description="顯示機器人的指令列表")
+@bot.tree.command(name = "help", description="顯示機器人的指令列表")
 async def help_command(response: discord.InteractionResponse):
     # 自定义帮助消息
     help_message = "我能使用的功能：\n"\
@@ -74,7 +71,7 @@ async def help_command(response: discord.InteractionResponse):
 @bot.tree.command(name="play", description="播放音乐")
 async def play_music(response: discord.InteractionResponse):
     # 播放音乐逻辑，这里假设你有一个 play_music() 函数来处理音乐播放
-    await play_music()
+    #await play_music()
     
     # 回复用户播放音乐
     await response.send_message("音乐已开始播放")
