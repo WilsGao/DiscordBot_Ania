@@ -30,7 +30,7 @@ async def ping(ctx):
     # 计算机器人的当前延迟（ping）值
     latency = bot.latency
     # 将延迟值转换为毫秒并发送到 Discord
-    await ctx.send(f'Pong! My ping is {round(latency * 1000)}ms')
+    await ctx.send(f'ping: {round(latency * 1000)}ms')
 
 # 定義命令 !about
 @bot.command()
@@ -55,10 +55,10 @@ async def hello(response: discord.InteractionResponse):
     # 回覆使用者的訊息
     #await interaction.response.send_message("Hello, world!")
 
-@bot.tree.command(name = "ShutUp", description = "讓人安靜的指令")
-async def hello(response: discord.InteractionResponse):
+@bot.tree.command(name = "shutup", description = "讓人安靜的指令")
+async def shutup(response: discord.InteractionResponse):
     # 回覆使用者的訊息
-    await response.send_message("破麻 你閉閉！")
+    await interaction.response.send_message("破麻 你閉閉！")
 
 @bot.tree.command(name="help", description="顯示機器人的指令列表")
 async def help_command(response: discord.InteractionResponse):
@@ -69,7 +69,7 @@ async def help_command(response: discord.InteractionResponse):
                    "/roulette - 輪盤怎麼用\n"\
                    "/translate - 翻譯文字"
     # 回复用户帮助信息
-    await response.send_message(help_message)
+    await interaction.response.send_message(help_message)
 
 @bot.tree.command(name="play", description="播放音乐")
 async def play_music(response: discord.InteractionResponse):
