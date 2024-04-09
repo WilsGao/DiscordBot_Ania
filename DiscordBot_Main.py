@@ -2,42 +2,48 @@ import os
 import discord
 from discord.ext import commands
 from discord import app_commands
+import sys
+import random
 
 # 定义 Intents 对象
-intents = discord.Intents.default()
+#intents = discord.Intents.default()
 
 # 如果你的 Bot 需要发送/接收消息和读取成员列表
+intents = discord.Intents.all()
 intents.messages = True
 intents.members = True
-
-#intents = discord.Intents.default()
-intents = discord.Intents.all()
-#intents.messages = True # 啟用發送/接收訊息的權限
 intents.guilds = True # 如果你的機器人需要與伺服器交互，也需要啟用此權限
 intents.message_content = True
+
+ADMIN_ID = int(os.getenv('ADMIN_ID'))
 
 # 初始化機器人客戶端
 bot = commands.Bot(command_prefix='!', intents=intents)
 
-# 定義當機器人啟動時的事件
-#@bot.event
-#async def on_ready():
-    #print(f'{bot.user.name} has connected to Discord!')
-
 # 定義命令 !ping
 @bot.command()
 async def ping(ctx):
-    # 计算机器人的当前延迟（ping）值
-    latency = bot.latency
-    # 将延迟值转换为毫秒并发送到 Discord
-    await ctx.send(f'ping: {round(latency * 1000)}ms')
+    # 计算机器人的当前延迟（ping）值並将延迟值转换为毫秒并发送到 Discord
+    await ctx.send(f'ping: {round(bot.latency * 1000)}ms')
 
 # 定義命令 !about
 @bot.command()
 async def about(ctx):
     await ctx.send('你好, 我是Ania!')
 
-#斜線指令
+# 定義命令 !restart
+@bot.command()
+async def restart(ctx):
+    if ctx.author.id == ADMIN_ID:
+        await ctx.send("重新啟動...")
+        await bot.close()
+        python = sys.executable
+        os.execl(python, python, *sys.argv)
+    else:
+        await ctx.send("您無權使用此命令。")
+
+
+#斜線指令 # on_ready定義當機器人啟動時的事件
 @bot.event
 async def on_ready():
     slash = await bot.tree.sync()
@@ -60,13 +66,23 @@ async def shutup(response: discord.InteractionResponse):
 @bot.tree.command(name = "help", description="顯示機器人的指令列表")
 async def help_command(response: discord.InteractionResponse):
     # 自定义帮助消息
-    help_message = "我能使用的功能：\n"\
-                   "/help - 顯示幫助訊息\n"\
-                   "/play - 如何播放音樂\n"\
-                   "/roulette - 輪盤怎麼用\n"\
+    help_message = "我能使用的功能：\\n"\
+                   "/help - 顯示幫助訊息\\n"\
+                   "/play - 如何播放音樂\\n"\
+                   "/roulette - 輪盤怎麼用\\n"\
                    "/translate - 翻譯文字"
     # 回复用户帮助信息
-    await interaction.response.send_message(help_message)
+    await response.send_message(help_message)
+
+@bot.tree.command(name="roulette", description="輪盤啟動!")
+async def roulette(response: discord.InteractionResponse):
+    # 模拟轮盘游戏，这里我们简单地随机生成一个结果
+    results = ["藍色", "綠色", "紅色"]
+    result = random.choice(results)
+    
+    # 回复用户轮盘结果
+    await response.send_message(f"結果是：{result}") 
+
 
 @bot.tree.command(name="play", description="播放音乐")
 async def play_music(response: discord.InteractionResponse):
