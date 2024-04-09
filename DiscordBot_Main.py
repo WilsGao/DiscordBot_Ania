@@ -47,21 +47,40 @@ async def on_ready():
 
 # name指令顯示名稱，description指令顯示敘述
 # name的名稱，中、英文皆可，但不能使用大寫英文
-@bot.tree.command(name = "hello", description = "Hello, world!")
-async def hello(interaction: discord.Interaction):
+@bot.tree.command(name = "hello", description = "使用Hello指令")
+async def hello(response: discord.InteractionResponse):
     # 回覆使用者的訊息
-    await interaction.response.send_message("Hello, world!")
+    await response.send_message("Hello, world!")
+#async def hello(interaction: discord.Interaction):
+    # 回覆使用者的訊息
+    #await interaction.response.send_message("Hello, world!")
 
-# async def on_message(message):
-    # if message.content.startswith('/'):
-        # command = message.content[1:].split(' ')[0]
-        # arguments = message.content[1+len(command):].strip()
-        # if command == 'hello':
-            # await message.channel.send('Hello!')
-        # elif command == 'about':
-            # await message.channel.send('我是Ania!，我喜歡花生')
+@bot.tree.command(name = "ShutUp", description = "讓人安靜的指令")
+async def hello(response: discord.InteractionResponse):
+    # 回覆使用者的訊息
+    await response.send_message("破麻 你閉閉！")
 
-    #await bot.process_commands(message)
+@bot.tree.command(name="help", description="顯示機器人的指令列表")
+async def help_command(response: discord.InteractionResponse):
+    # 自定义帮助消息
+    help_message = "我能使用的功能：\n"\
+                   "/help - 顯示幫助訊息\n"\
+                   "/play - 如何播放音樂\n"\
+                   "/roulette - 輪盤怎麼用\n"\
+                   "/translate - 翻譯文字"
+    # 回复用户帮助信息
+    await response.send_message(help_message)
+
+@bot.tree.command(name="play", description="播放音乐")
+async def play_music(response: discord.InteractionResponse):
+    # 播放音乐逻辑，这里假设你有一个 play_music() 函数来处理音乐播放
+    await play_music()
+    
+    # 回复用户播放音乐
+    await response.send_message("音乐已开始播放")
+
+
+
 
 # 登錄機器人
 bot.run(os.getenv('DISCORD_TOKEN'))
