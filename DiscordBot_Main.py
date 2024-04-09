@@ -55,8 +55,8 @@ async def hello(response: discord.InteractionResponse):
     # 回覆使用者的訊息
     #await interaction.response.send_message("Hello, world!")
 
-@bot.tree.command(name = "ShutUp", description = "讓人安靜的指令")
-async def hello(response: discord.InteractionResponse):
+@bot.tree.command(name = "shutup", description = "讓人安靜的指令")
+async def ShutUp(response: discord.InteractionResponse):
     # 回覆使用者的訊息
     await response.send_message("破麻 你閉閉！")
 
