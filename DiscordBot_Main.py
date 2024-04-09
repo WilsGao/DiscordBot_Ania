@@ -47,8 +47,8 @@ async def on_ready():
 
 # name指令顯示名稱，description指令顯示敘述
 # name的名稱，中、英文皆可，但不能使用大寫英文
-@app_commands.command(name = "hello", description = "Hello, world!")
-async def hello(self, interaction: discord.Interaction):
+@bot.tree.command(name = "hello", description = "Hello, world!")
+async def hello(interaction: discord.Interaction):
     # 回覆使用者的訊息
     await interaction.response.send_message("Hello, world!")
 
