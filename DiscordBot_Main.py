@@ -81,23 +81,6 @@ async def roulette(ctx, option1: str, option2: str, option3: str):
     result = random.choice(options)
     await ctx.response.send_message(f"結果是：{result}")
 
-@bot.tree.command(name="輪盤", description="待改!")  #待改
-async def RouletteSelector(ctx, num_options: int, interaction):
-    await interaction.response.send_message("Please input a message.")
-    
-    if num_options < 2:
-        await ctx.response.send_message("選項數量至少需要 2 個。")
-        return
-    
-    optionbig = []
-    for i in range(num_options):
-        await ctx.response.send_message(f"請輸入第 {i+1} 個選項：")
-        response = await bot.wait_for("message", check=lambda m: m.author == ctx.author)
-        optionbig.append(response.content)
-    
-    resultbig = random.choice(optionbig)
-    await ctx.response.send_message(f"結果是：{resultbig}")
-
 @bot.tree.command(name="ping", description="測延遲")
 async def ping(ctx):
     # 计算机器人的当前延迟（ping）值並将延迟值转换为毫秒并发送到 Discord
